@@ -4,7 +4,11 @@ import keyword
 
 class FrozenJSON(object):
     def __init__(self, mapping: collections.abc.Mapping):
-        self._data = dict(mapping)
+        self._data = {}
+        for key, value in mapping.items():
+            if keyword.iskeyword(key):
+                key += '_'
+            self._data[key] = value
 
     def __getattr__(self, name):
         try:
