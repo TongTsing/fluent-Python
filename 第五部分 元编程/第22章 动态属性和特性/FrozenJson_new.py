@@ -13,7 +13,7 @@ class FrozenJSON(object):
         if isinstance(arg, collections.abc.Mapping):
             return super().__new__(cls)
         elif isinstance(arg, collections.abc.MutableSequence):
-            return [cls.build(item) for item in arg]
+            return [cls(item) for item in arg]
         else:
             return arg
 
