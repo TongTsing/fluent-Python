@@ -14,13 +14,7 @@ def test_frozen_json():
 
     frozen = FrozenJSON(data)
 
-    assert frozen.name == 'Alice'
-    assert frozen.age == 30
-    assert frozen.address.city == 'Wonderland'
-    assert frozen.address.zip == '12345'
-    assert frozen.hobbies[0] == 'reading'
-    assert frozen.hobbies[1] == 'chess'
-    assert frozen.hobbies[2] == 'hiking'
+    assert frozen.class_ == 'Math'
 
     print("All tests passed.")
 

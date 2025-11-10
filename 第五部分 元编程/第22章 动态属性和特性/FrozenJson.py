@@ -5,12 +5,17 @@ import keyword
 class FrozenJSON(object):
     def __init__(self, mapping: collections.abc.Mapping):
         self._data = {}
+        # 处理关键字冲突
         for key, value in mapping.items():
             if keyword.iskeyword(key):
                 key += '_'
             self._data[key] = value
 
     def __getattr__(self, name):
+        # 处理关键字冲突
+        if keyword.iskeyword(name):
+            name += '_'
+
         try:
             value = getattr(self._data, name)
         except AttributeError:
