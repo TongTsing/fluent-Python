@@ -1,4 +1,4 @@
-from FrozenJson import FrozenJSON
+from FrozenJson_new import FrozenJSON
 
 def test_frozen_json():
     data = {
@@ -16,7 +16,6 @@ def test_frozen_json():
 
     assert frozen.class_ == 'Math'
 
-    print("All tests passed.")
 
 if __name__ == "__main__":
     test_frozen_json()
