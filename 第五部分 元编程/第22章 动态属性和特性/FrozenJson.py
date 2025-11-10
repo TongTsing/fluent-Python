@@ -1,12 +1,29 @@
 import collections
 from collections import abc
+import keyword
 
 class FrozenJSON(object):
     def __init__(self, mapping: collections.abc.Mapping):
-        self._data = mapping
+        self._data = dict(mapping)
 
-    def __getattr__(self, item):
+    def __getattr__(self, name):
         try:
-            return getattr(self._data, item)
+            value = getattr(self._data, name)
         except AttributeError:
-            raise AttributeError(item)
+            pass
+
+        try:
+            value = self._data[name]
+        except KeyError:
+            raise AttributeError(f"No such attribute: {name}")
+        
+        return self.build(value)
+
+    @classmethod 
+    def build(cls, obj):
+        if isinstance(obj, collections.abc.Mapping):
+            return FrozenJSON(obj)
+        elif isinstance(obj, collections.abc.MutableSequence):
+            return [cls.build(item) for item in obj]
+        else:
+            return obj
